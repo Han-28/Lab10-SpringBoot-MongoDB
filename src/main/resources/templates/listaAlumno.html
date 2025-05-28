@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${titulo}">Lista de Alumnos</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Spring Boot</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active"><a class="nav-link" th:href="@{/}">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/alumno/listar}">Alumnos</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h1 class="text-secondary border-bottom border-success" th:text="${titulo}"></h1>
+
+    <p><a th:href="@{/alumno/form}" class="btn btn-success">Crear Alumno</a></p>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Sexo</th>
+            <th>Fecha Nacimiento</th>
+            <th>Email</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alumno : ${alumnos}">
+            <td th:text="${alumno.id}"></td>
+            <td th:text="${alumno.nombre}"></td>
+            <td th:text="${alumno.apellido}"></td>
+            <td th:text="${alumno.dni}"></td>
+            <td th:text="${alumno.sexo}"></td>
+            <td th:text="${#temporals.format(alumno.fechaNacimiento, 'yyyy-MM-dd')}"></td>
+            <td th:text="${alumno.email}"></td>
+            <td><a class="btn btn-primary btn-sm" th:href="@{'/alumno/form/' + ${alumno.id}}">Editar</a></td>
+            <td><a class="btn btn-danger btn-sm" th:href="@{'/alumno/eliminar/' + ${alumno.id}}"
+                   onclick="return confirm('¿Estás seguro que deseas eliminar este alumno?');">Eliminar</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
