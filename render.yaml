@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: springboot-mongodb-app
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: PORT
+        value: 8080
+      - key: SPRING_DATA_MONGODB_URI
+        value: YOUR_MONGODB_URI_HERE
